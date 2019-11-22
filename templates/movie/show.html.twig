@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Movie{% endblock %}
+
+{% block body %}
+    <h1>Movie</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ movie.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ movie.title }}</td>
+            </tr>
+            <tr>
+                <th>Duration</th>
+                <td>{{ movie.duration }}</td>
+            </tr>
+            <tr>
+                <th>Synopsys</th>
+                <td>{{ movie.synopsys }}</td>
+            </tr>
+            <tr>
+                <th>Poster</th>
+                <td>{{ movie.poster }}</td>
+            </tr>
+            <tr>
+                <th>Year</th>
+                <td>{{ movie.year ? movie.year|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Nationality</th>
+                <td>{{ movie.nationality ? movie.nationality|join(', ') : '' }}</td>
+            </tr>
+            <tr>
+                <!-- De base les acteurs n'apparraissent pas ! -->
+                <th>Casting</th>
+                <td>
+                    {# {{ dump(movie.actors) }} #}
+                    {% for actor in movie.actors %}
+                        <b>Actor: </b>{{ actor.firstname }} {{ actor.lastname }}
+                    {% endfor %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('movie_index') }}">back to list</a>
+
+    <a href="{{ path('movie_edit', {'id': movie.id}) }}">edit</a>
+
+    {{ include('movie/_delete_form.html.twig') }}
+{% endblock %}

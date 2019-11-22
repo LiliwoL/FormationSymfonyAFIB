@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Actor{% endblock %}
+
+{% block body %}
+    <h1>Actor</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ actor.id }}</td>
+            </tr>
+            <tr>
+                <th>Firstname</th>
+                <td>{{ actor.firstname }}</td>
+            </tr>
+            <tr>
+                <th>Lastname</th>
+                <td>{{ actor.lastname }}</td>
+            </tr>
+            <tr>
+                <th>Age</th>
+                <td>{{ actor.age }}</td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td>{{ actor.image }}</td>
+            </tr>
+            <tr>
+                <th>Biography</th>
+                <td>{{ actor.biography }}</td>
+            </tr>
+            <tr>
+                <!-- De base les films n'apparraissent pas ! -->
+                <th>Filmography</th>
+                <td>
+                    {# {{ dump(actor.movies) }} #}
+                    {% for movie in actor.movies %}
+                        <b>Title: </b>{{ movie.title }}
+                    {% endfor %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('actor_index') }}">back to list</a>
+
+    <a href="{{ path('actor_edit', {'id': actor.id}) }}">edit</a>
+
+    {{ include('actor/_delete_form.html.twig') }}
+{% endblock %}

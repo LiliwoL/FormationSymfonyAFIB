@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Affichage d'un SEUL article{% endblock %}
+
+{% block body %}
+    <style>
+        .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+        .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+
+    <div class="example-wrapper">
+        <h1>Un seul article</h1>
+
+        {{ dump(article) }}
+
+        On utilise l'affichage d'un formulaire
+
+        <!-- Pour modifier à la volée l'action et la méthode du formulaire -->
+        {{ form_start(formulaireArticle) }}
+
+        <!-- Reste des champs -->
+        {{ form_widget(formulaireArticle) }}
+
+
+        <input class="btn btn-primary" type="submit" value="Modifier cet article"/>
+        {{ form_end(formulaireArticle) }}
+
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="{{ path('article') }}">Créer un nouvel article</a></li>
+            <li><a href="{{ path('Liste des articles') }}">Lister tous les articles</a></li>
+        </ul>
+    </nav>
+{% endblock %}

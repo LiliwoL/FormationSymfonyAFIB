@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Random User{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Voici une utilisation de l'API Random User</h1>
+
+    {# dump (users) #}
+
+    <p>Boucle sur le tableau users</p>
+    <p><a href="{{ path('mail') }}">Lien vers la page email</a></p>
+
+    {{ url('mail') }}
+
+    <table class="table table-striped table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>Gender</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Picture</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+                <tr>
+                    <td>{{ user.gender }}</td>
+                    <td>{{ user.name.title }} {{ user.name.first | upper }} {{ user.name.last }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>
+                        <img
+                                src="{{ user.picture.medium }}"
+                                alt="Photo de {{ user.name.first | upper }} {{ user.name.last }}" />
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

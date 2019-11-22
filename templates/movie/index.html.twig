@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Movie index{% endblock %}
+
+{% block body %}
+    <h1>Movie index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>Duration</th>
+                <th>Synopsys</th>
+                <th>Poster</th>
+                <th>Year</th>
+                <th>Nationality</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for movie in movies %}
+            <tr>
+                <td>{{ movie.id }}</td>
+                <td>{{ movie.title }}</td>
+                <td>{{ movie.duration }}</td>
+                <td>{{ movie.synopsys }}</td>
+                <td>{{ movie.poster }}</td>
+                <td>{{ movie.year ? movie.year|date('Y-m-d') : '' }}</td>
+                <td>{{ movie.nationality ? movie.nationality|join(', ') : '' }}</td>
+                <td>
+                    <a href="{{ path('movie_show', {'id': movie.id}) }}">show</a>
+
+
+                    {# Affichage différent en fonction du role de l'utilisateur #}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('movie_edit', {'id': movie.id}) }}">edit</a>
+                    {% elseif is_granted('ROLE_USER') %}
+                        edit non disponible simple user
+                    {% else %}
+                        edit impossible
+                    {% endif %}
+
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('movie_new') }}">Create new</a>
+{% endblock %}
